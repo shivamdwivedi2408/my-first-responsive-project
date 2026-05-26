@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Defined Calculator</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #e7f0fd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .calc-box {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      width: 320px;
+      text-align: center;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 15px;
+      margin: 5px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .add { background: #4caf50; color: white; }
+    .sub { background: #f44336; color: white; }
+    .mul { background: #2196f3; color: white; }
+    .div { background: #ff9800; color: white; }
+    .clear { background: #9c27b0; color: white; }
+    h2 { margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+  <div class="calc-box">
+    <h2>Simple Calculator</h2>
+    <input type="number" id="num1" placeholder="Enter first number"><br>
+    <input type="number" id="num2" placeholder="Enter second number"><br>
+    
+    <!-- Operation Buttons -->
+    <div>
+      <button class="add" onclick="performOperation('add')">Add</button>
+      <button class="sub" onclick="performOperation('sub')">Subtract</button>
+      <button class="mul" onclick="performOperation('mul')">Multiply</button>
+      <button class="div" onclick="performOperation('div')">Divide</button>
+      <button class="clear" onclick="clearFields()">Clear</button>
+    </div>
+
+    <h3 id="result">Result: </h3>
+  </div>
+
+  <script>
+    // ----- User defined functions -----
+    function add(a, b) {
+      return a + b;
+    }
+
+    function subtract(a, b) {
+      return a - b;
+    }
+
+    function multiply(a, b) {
+      return a * b;
+    }
+
+    function divide(a, b) {
+      if (b === 0) return "Error! Division by zero.";
+      return a / b;
+    }
+
+    // Main operation function
+    function performOperation(type) {
+      let n1 = parseFloat(document.getElementById("num1").value);
+      let n2 = parseFloat(document.getElementById("num2").value);
+      let result;
+
+      if (isNaN(n1) || isNaN(n2)) {
+        document.getElementById("result").innerText = "Please enter valid numbers!";
+        return;
+      }
+
+      // Call respective user-defined function
+      if (type === 'add') result = add(n1, n2);
+      else if (type === 'sub') result = subtract(n1, n2);
+      else if (type === 'mul') result = multiply(n1, n2);
+      else if (type === 'div') result = divide(n1, n2);
+      else result = "Invalid operation";
+
+      document.getElementById("result").innerText = "Result: " + result;
+    }
+
+    // Clear all input fields and result
+    function clearFields() {
+      document.getElementById("num1").value = "";
+      document.getElementById("num2").value = "";
+      document.getElementById("result").innerText = "Result:";
+    }
+  </script>
+</body>
+</html>
